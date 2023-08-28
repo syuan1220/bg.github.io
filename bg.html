@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>身體健康狀況記錄</title>
+
+    <style>
+        body{
+            background-color: #B3BDCB;
+        }
+
+        .box{
+            width: 400px;
+            height: 320px;
+            background-color: #DAE3F0;
+            border-radius: 10px;
+            margin: 0px auto;
+        }
+
+        .type{
+            width: 400px;
+            height: 50px;
+            border-radius: 10px 10px 0px 0px;
+            margin: 0px auto;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .bg{
+            width: 100px;
+            height: 40px;
+            background-color: #DAE3F0;
+            border-radius: 15px 15px 0px 0px;
+            border: none;
+            margin: 0px -4px 0px 0px;
+            font-size: 21px;
+            box-shadow: inset 1px 3px 3px rgba(0,0,0,.5);
+        }
+
+        .bp{
+            width: 100px;
+            height: 40px;
+            background-color: #DAE3F0;
+            border-radius: 15px 15px 0px 0px;
+            border: none;
+            margin: 0px -4px 0px 0px;
+            font-size: 21px;
+        }
+
+        /* .column{
+            display: flex; 
+            align-items: center;
+            margin: 0px 0px 8px 0px;
+        } */
+
+        input[type="date"]{
+            background-color: white;
+            width: 150px;
+            height: 35px;
+            border: none;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 17px;
+            text-align: center;
+        }
+
+        .oval-button{
+            background-color: white;
+            width: 55px;
+            height: 35px;
+            border: none;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 17px;
+            box-shadow: 1px 1.5px 4px -1px black;
+        }
+
+        .selected{
+            background:#B3BDCB;
+        }
+
+        .save{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .saveBtn{
+            background-color: white;
+            width: 80px;
+            height: 38px;
+            border: none;
+            border-radius: 12px;
+            margin: 40px;
+            font-size: 17px;
+            box-shadow: 1px 1.5px 4px -1px black;
+        }
+
+        .saveBtn:active{
+            background:#B3BDCB;
+        }
+
+        input[type="text"]{
+            background-color: white;
+            width: 150px;
+            height: 35px;
+            border: none;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 17px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="type">
+        <div>
+            <button id="bg" class="bg" onclick="location.href='bg.html'">血糖</button>
+            <button id="bp" class="bp" onclick="location.href='bp.html'">血壓</button>
+        </div>
+    </div>
+    <div class="box">
+        <table>
+            <tr>
+                <td><p style="font-size:17px ;margin: 0px 50px 0px 10px;">日期</p></td>
+                <td><input type="date" id="date"></td>
+            </tr>
+            <tr>
+                <td><p style="font-size:17px ;margin: 0px 50px 0px 10px;">時段</p></td>
+                <td>
+                    <!-- <button id="breakfast" class="oval-button">早餐</button>
+                    <button id="lunch" class="oval-button">午餐</button>
+                    <button id="dinner" class="oval-button">晚餐</button> -->
+                    <button onclick="selectOption('time',this)" class="oval-button">早餐</button>
+                    <button onclick="selectOption('time',this)" class="oval-button">午餐</button>
+                    <button onclick="selectOption('time',this)" class="oval-button">晚餐</button>
+                </td>
+            </tr>
+            <tr>
+                <td><p style="font-size:17px ;margin: 0px 50px 0px 10px;">餐前/後</p></td>
+                <td>
+                    <!-- <button id="b-meal" class="oval-button">餐前</button>
+                    <button id="a-meal" class="oval-button">餐後</button> -->
+                    <button onclick="selectOption('meal',this)" class="oval-button">餐前</button>
+                    <button onclick="selectOption('meal',this)" class="oval-button">餐後</button>
+                </td>
+            </tr>
+            <tr>
+                <td><p style="font-size:17px ;margin: 0px 50px 0px 10px;">血糖值</p></td>
+                <td><input type="text" id="num" min="0" step="0.01"></td>
+                <td><p style="font-size:17px ;">mg/dl</p></td>
+            </tr>
+        </table>
+        <div class="save">
+            <button onclick="save()" class="saveBtn">完成</button>
+        </div>
+        <!-- <div class="column">
+            <p style="font-size:17px ;margin: 0px 50px 0px 10px;">日期</p>
+            <input type="date" id="start" name="trip-start" min="1900-01-01" max="2100-12-31" />
+        </div>
+        
+        <div id="period" class="column">
+            <p style="font-size:17px ;margin: 0px 50px 0px 10px;">時段</p>
+            <button class="oval-button">早餐</button>
+            <button class="oval-button">午餐</button>
+            <button class="oval-button">晚餐</button>
+        </div>
+
+        <div id="meals" class="column">
+            <p style="font-size:17px ;margin: 0px 50px 0px 10px;">餐前/後</p>
+            <button class="oval-button">餐前</button>
+            <button class="oval-button">餐後</button>
+        </div>
+
+        <div id="text" class="column">
+            <p style="font-size:17px ;margin: 0px 50px 0px 10px;">數值</p>
+            <input type="text" name="欄位名稱">
+            <p style="font-size:17px ;">mg/dl</p>
+        </div>
+
+        <div id="save" style="margin: 50px 0px 0px 0px;">
+            <button class="save-button">完成</button>
+        </div> -->
+    </div>
+</body>
+</html>
+
+<script>
+    var selections = { time: null, meal: null };
+    var date = document.getElementById("date");
+    var num = document.getElementById("num");
+
+    function selectOption(type, button) {
+        if (selections[type]) {
+            selections[type].classList.remove("selected");
+        }
+        selections[type] = button;
+        button.classList.add("selected");
+    }
+
+    function save() {
+        var Date = date.value;
+        var Num = parseFloat(num.value);
+
+        if (selections.time && selections.meal && Date && Num !== "") {
+            if (Num >= 0) {
+                alert("日期：" + Date + "\n時段：" + selections.time.innerText + "\n餐前/後：" + selections.meal.innerText + "\n血糖值：" + Num.toFixed(2));
+            } else {
+            alert("數值必須大於0");
+            }
+        } else {
+            alert("請完成所有選項");
+        }
+    }
+</script>
+
